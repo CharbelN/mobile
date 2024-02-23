@@ -10,8 +10,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
-
-
 public class LoginActivity extends AppCompatActivity {
 
     private final String apiUrl = "http://localhost:8080/api/login";
@@ -54,15 +52,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void authenticateUser(String username, String password) {
-        // Make API call using Volley
-        // You can use the ApiRequest class from the previous example here
-        // Make sure to handle the response and errors accordingly
-
         // Create an instance of ApiRequest with the requestQueue and API URL
         ApiRequest apiRequest = new ApiRequest(requestQueue, apiUrl);
 
         // Make the login API call
-        apiRequest.login(new ApiRequest.ApiListener() {
+        apiRequest.login(username, password, new ApiRequest.ApiListener() {
             @Override
             public void onSuccess(String response) {
                 // Handle successful response
@@ -80,3 +74,4 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 }
+
