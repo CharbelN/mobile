@@ -64,17 +64,18 @@
         android:gravity="center"/>
 
     <!-- Add your Google Sign-in button here -->
+
     <Button
         android:id="@+id/buttonGoogleSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up with Google"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
         android:background="#4285F4"
+        android:text="Sign Up with Google"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewSignUp"

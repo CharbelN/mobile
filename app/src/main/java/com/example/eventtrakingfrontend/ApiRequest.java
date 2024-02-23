@@ -7,6 +7,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ApiRequest {
 
     public interface ApiListener {
@@ -22,7 +25,7 @@ public class ApiRequest {
         this.url = url;
     }
 
-    public void login(final ApiListener listener) {
+    public void login(final String username, final String password, final ApiListener listener) {
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -33,7 +36,15 @@ public class ApiRequest {
             public void onErrorResponse(VolleyError error) {
                 listener.onError(error);
             }
-        });
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("username", username);
+                params.put("password", password);
+                return params;
+            }
+        };
 
         requestQueue.add(request);
     }
