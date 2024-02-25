@@ -1,6 +1,7 @@
 package com.example.eventtrakingfrontend;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,7 @@ import com.android.volley.toolbox.Volley;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private final String apiUrl = "http://localhost:8080/api/login";
+    private final String apiUrl = "http://192.168.0.105:8080/api/login";
     private RequestQueue requestQueue;
 
     private EditText editTextUsername;
@@ -71,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
                 // For example, display an error message to the user
                 Toast.makeText(LoginActivity.this, "Login failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
+
+
         });
     }
 }

@@ -4,8 +4,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,23 +30,30 @@ public class ApiRequest {
     }
 
     public void login(final String username, final String password, final ApiListener listener) {
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("username", username);
+            jsonBody.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, this.url, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onSuccess(response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        listener.onError(error);
+                    }
+                }) {
             @Override
-            public void onResponse(String response) {
-                listener.onSuccess(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                listener.onError(error);
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("username", username);
-                params.put("password", password);
-                return params;
+            public String getBodyContentType() {
+                return "application/json";
             }
         };
 
