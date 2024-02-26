@@ -59,4 +59,35 @@ public class ApiRequest {
 
         requestQueue.add(request);
     }
+    public void signUp(final String username, final String email, final String password, final ApiListener listener) {
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("username", username);
+            jsonBody.put("email", email);
+            jsonBody.put("password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onSuccess(response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        listener.onError(error);
+                    }
+                }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+        };
+
+        requestQueue.add(request);
+    }
 }
