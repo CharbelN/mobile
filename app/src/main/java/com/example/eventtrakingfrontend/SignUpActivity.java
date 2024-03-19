@@ -1,5 +1,6 @@
 package com.example.eventtrakingfrontend;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,8 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up_layout);
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         apiRequest = new ApiRequest(requestQueue, apiUrl);
 
         editTextUsername = findViewById(R.id.editTextUsername);
@@ -61,7 +63,9 @@ public class SignUpActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     // Handle success response
                     Toast.makeText(SignUpActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
-                    // Optionally, navigate to another activity or perform other actions upon successful sign-up
+                    // Navigate back to LoginActivity after successful sign-up
+                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                    finish(); // Close the current activity to prevent going back to it
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(SignUpActivity.this, "Error parsing response", Toast.LENGTH_SHORT).show();
@@ -76,7 +80,3 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 }
-
-
-
-

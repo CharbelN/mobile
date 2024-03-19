@@ -1,10 +1,11 @@
 package com.example.eventtrakingfrontend;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private Button buttonLogin;
+    private TextView textViewSignUp; // Initialize this TextView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
+        textViewSignUp = findViewById(R.id.textViewSignUp); // Initialize TextView
 
         // Set click listener for login button
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +51,15 @@ public class LoginActivity extends AppCompatActivity {
                     // Make API call to authenticate user
                     authenticateUser(username, password);
                 }
+            }
+        });
+
+        // Set click listener for sign up text view
+        textViewSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start SignUpActivity
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
             }
         });
     }
@@ -72,9 +84,6 @@ public class LoginActivity extends AppCompatActivity {
                 // For example, display an error message to the user
                 Toast.makeText(LoginActivity.this, "Login failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
-
         });
     }
 }
-
