@@ -23,7 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button buttonSignUp;
 
     private ApiRequest apiRequest;
-    private String apiUrl = "http://192.168.0.105:8080/api/signup"; // Your API endpoint URL
+    private String apiUrl = "http://192.168.0.106:8080/api/signup"; // Your API endpoint URL
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
